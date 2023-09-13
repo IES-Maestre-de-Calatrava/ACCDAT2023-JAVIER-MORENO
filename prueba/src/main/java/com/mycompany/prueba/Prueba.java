@@ -15,8 +15,8 @@ public class Prueba {
     public static void main(String[] args) {
        File ficheroPrueba = new File(".\\ficheroprueba.txt");
     
-        System.out.println("El tamaño del fichero es:"+ficheroPrueba.length());
+        System.out.println("El tamaño del fichero es:"+ ficheroPrueba.length());
         
-    
+        System.out.println(ficheroPrueba.length());
     }
 }
