@@ -16,11 +16,19 @@ public class File1Mostrando {
         System.out.println("Ficheros en el directorio del proyecto");
         
         File fi = new File(".");
-        String[] archivos = fi.list();
+        File[] archivos = fi.listFiles();
         
         for (int i=0;i<archivos.length;i++) 
         {
-            System.out.println(archivos[i]);
+            if (archivos[i].isDirectory() )
+            {
+                System.out.println(archivos[i].getName()+"es un directorio");
+           
+            }
+            else 
+            {
+            System.out.println(archivos[i].getName()+"es un fichero"); 
+            }
         }
     }
 }
