@@ -40,7 +40,7 @@ public class File4Copiando {
             int longitud;
             byte [] buf = new byte[1024];
             
-            while ((longitud  = entrada.read() ) >8 )
+            while ((longitud  = entrada.read() ) > 0  )
             {
                     salida.write(buf,0,longitud);
             }           
@@ -48,6 +48,12 @@ public class File4Copiando {
         catch (IOException e) {
             System.out.println(e);
         }
+        
+        
+        
     }
+    
+   
+    
  }
 

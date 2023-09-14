@@ -15,17 +15,19 @@ import org.apache.commons.io.FileUtils;
 public class File3Eliminando {
 
     public static void main(String[] args) throws IOException {
-              File carpeta = new File(".\\carpeta");
+        
+        File carpeta = new File(".\\carpeta");
         
         //carpeta.mkdir();
-        System.out.println(carpeta.getAbsolutePath()) ;
+       // System.out.println(carpeta.getAbsolutePath()) ;
         
         File fichero1 = new File(".\\carpeta\\fichero1.txt");
-        fichero1.createNewFile();
+        fichero1.delete();
         
         File fichero2 = new File(".\\carpeta\\fichero2.txt");
-        fichero2.createNewFile();
+        fichero2.delete();
         
+        carpeta.delete();
         
         //  FileUtils.deleteDirectory();
         
