@@ -77,7 +77,6 @@ public class EjercicioFileReader
                     {
                         frase =  frase + String.valueOf(cadena);
                          Arrays.fill(cadena, '\u0000');
-                         
                          i = ficheroIn.read(cadena);
                     }
                     System.out.print(frase);
