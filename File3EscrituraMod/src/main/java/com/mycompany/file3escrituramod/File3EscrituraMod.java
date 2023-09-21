@@ -29,7 +29,7 @@ public class File3EscrituraMod {
             
            
             bufferedWriter.close();
-            
+            fileWriter.close();
             System.out.println("Se ha escrito la línea en el archivo con éxito.");
         } 
     catch (IOException e) {

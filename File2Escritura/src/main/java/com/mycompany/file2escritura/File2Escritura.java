@@ -21,9 +21,12 @@ public class File2Escritura {
             
             FileWriter ficheroOut = new FileWriter(fichero);
 
-            String contenido = "Hola que tal";
+            String contenido = "Hola que tal \n";
+            String contenido2 = "yo muy bien";
             
             ficheroOut.write(contenido);
+            ficheroOut.write(contenido2);
+           
             ficheroOut.close();
               
               

@@ -29,7 +29,14 @@ public class File1Escritura {
             ficheroOut.write(array);
             ficheroOut.write('\n');
             
-              ficheroOut.close();
+            
+            //otra alternativa
+                for(int i = 0 ; i<array.length ; i++)
+                {
+                    ficheroOut.write(array[i]);
+                }
+                
+             ficheroOut.close();
         } 
         catch (IOException ex) {
             System.out.println(ex);

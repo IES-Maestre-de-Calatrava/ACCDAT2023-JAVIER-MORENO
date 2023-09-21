@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -20,8 +21,22 @@ public class File3LecturaMod {
 
     public static void main(String[] args) {
       
+        //llamamos el metodo
+        JFileChooser file = new JFileChooser();
+        file.showOpenDialog(null);
         
-        lecturafichero("fichero.txt",".\\");
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showOpenDialog(null);
+        
+         String rutaarchivo = null;
+        if (result == JFileChooser.APPROVE_OPTION) 
+        {
+        // El usuario seleccionó un archivo
+             rutaarchivo = fileChooser.getSelectedFile().getAbsolutePath();
+             System.out.println("Archivo seleccionado: " + rutaarchivo);
+        }
+        
+        lecturafichero("fichero.txt", rutaarchivo);
 
     }
     
@@ -40,6 +55,8 @@ public class File3LecturaMod {
             }    
         
         
+            fichero1.close();
+            brfichero1.close();
         } 
  
         catch (FileNotFoundException ex) {
