@@ -38,3 +38,7 @@ replay_pid*
 /File4Encripta/target/
 /File5Desencripta/target/
 /File3Escritura/target/
+/File1EscrituraBytesPrim/target/
+/File2LecturaBytesPrim/target/
+/File3EscrituraBytesArrays/target/
+/File4LecturaBytesArrays/target/
