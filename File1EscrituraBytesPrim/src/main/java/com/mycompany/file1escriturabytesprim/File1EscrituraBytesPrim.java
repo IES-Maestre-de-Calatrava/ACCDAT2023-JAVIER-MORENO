@@ -27,7 +27,6 @@ public class File1EscrituraBytesPrim {
           char caracter = 'A';
           boolean prueba = true;
        try{
-      
            FileOutputStream ficheroOut = new FileOutputStream(fichero);
            DataOutputStream salida = new DataOutputStream(ficheroOut);
            
