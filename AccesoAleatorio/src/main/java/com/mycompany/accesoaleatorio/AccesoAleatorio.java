@@ -40,8 +40,6 @@ public class AccesoAleatorio {
            
             fichero.writeChars(buffer.toString());
             buffer.setLength(5);
-            
-           
             */
             fichero.writeDouble(1000.33);
             fichero.close();
@@ -59,9 +57,12 @@ public class AccesoAleatorio {
         
         // LEER COMPLETO
         try{
-            RandomAccessFile fichero = new RandomAccessFile(ficheroPrueba ,"rw");
+            RandomAccessFile fichero = new RandomAccessFile(ficheroPrueba ,"r");
             
-            int record = 33;
+            int record;
+            
+            record = fichero.readInt();
+            System.out.println(record);
             
             
         }
