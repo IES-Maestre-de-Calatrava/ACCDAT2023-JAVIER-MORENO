@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
@@ -32,17 +32,20 @@ public class File4LecturaBytesArraysMod {
             
             while(entrada.available() > 0)
             {
+      
                 nombre = entrada.readUTF();
                 telefono = entrada.readUTF();
                 activo = entrada.readBoolean();
-                
-                System.out.println("Nombre: " + nombre + ", Teléfono: " + telefono + ", Activo Empresa: " +activo);
-                      
+                if(activo == true)
+                {
+                 System.out.println("Nombre: " + nombre + ", Teléfono: " + telefono + ", Activo Empresa: " +activo);
+                }
+                 
             }
             ficheroIn.close();
             entrada.close();
         } 
-        catch (EOFException eof) {
+        catch (EOFException eof) { //no salta debido a que la estamos controlando con el .available 
                System.out.println("fin del fichero");
                
         } 
