@@ -34,18 +34,24 @@ public static int tamaño = 42;
         try{
             
             fichero.writeInt(33);
+            
+            //String nombre1 = "GARCIA";
             buffer = new StringBuffer("GARCIA");
             buffer.setLength(10);
             fichero.writeChars(buffer.toString());
+             //   fichero.writeUTF(nombre1);
             fichero.writeDouble(1000.33);
             
             fichero.seek(archivo.length());
             
             fichero.writeInt(65);
+            //String nombre2 = "DIAZ";
+            
             buffer2 = new StringBuffer("DIAZ");
             buffer2.setLength(10);
-          
             fichero.writeChars(buffer2.toString());
+            //fichero.writeUTF(nombre2);
+            
             fichero.writeDouble(1500);
             
             

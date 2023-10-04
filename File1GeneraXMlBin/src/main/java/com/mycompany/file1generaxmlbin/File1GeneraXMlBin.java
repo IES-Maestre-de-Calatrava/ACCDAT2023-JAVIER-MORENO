@@ -11,6 +11,7 @@ package com.mycompany.file1generaxmlbin;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -32,57 +33,65 @@ import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
-
+import org.xml.sax.SAXException;
 
 
 public class File1GeneraXMlBin {
 
     public static void main(String[] args) {
       
-        File fichero = new File("fichero.dat");
-        
-        
-        // int , char y double 
-        // 1º leer el fichero binario e ir construyendolo poco a poco como si fueramos cavernicolas 
-        try {
-            
-         FileInputStream ficheroIn = new FileInputStream(fichero);
-            DataInputStream entrada = new DataInputStream(ficheroIn);
+       try {
+            // Paso 1: Leer el archivo binario de empleados
+            FileInputStream fileInputStream = new FileInputStream("fichero.dat");
+            DataInputStream dataInputStream = new DataInputStream(fileInputStream);
 
-            int id = 0;
-            
-            StringBuffer sb = new StringBuffer();
-            double salario = 0;
-  
-            while(entrada.available() > 0)
-            {
-                id = entrada.readInt();
-                System.out.println(id);
-                
-             
-                   for(int i = 0 ; i< 10 ; i++)
-                   {
-                       sb.append(entrada.readChar());
-                   }
-                
-               
-                salario = entrada.readDouble();
-                System.out.println(salario);
-                System.out.println(sb);
-                System.out.println("");
-                
-                System.out.println("------------");
+            // Paso 2: Crear un documento XML
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document documento = builder.newDocument();
+
+            // Paso 3: Crear el nodo raíz y agregarlo al documento XML
+            Element raiz = crearNodoPrincipal("listaEmpleados", documento);
+
+            while (true) {
+                try {
+                    int id = dataInputStream.readInt();
+                    String nombre = readString(dataInputStream);
+                    double salario = dataInputStream.readDouble();
+
+                    Element empleado = documento.createElement("empleado");
+                    añadirNodo("id", Integer.toString(id), empleado, documento);
+                    añadirNodo("nombre", nombre, empleado, documento);
+                    añadirNodo("salario", Double.toString(salario), empleado, documento);
+
+                    raiz.appendChild(empleado);
+                } catch (EOFException e) {
+                    // Se llegó al final del archivo, salir del bucle
+                    break;
+                }
             }
-            ficheroIn.close();
-            entrada.close();
-            
-        }
-        catch(IOException e)
-        {
-            
+
+            // Paso 4: Generar el archivo XML
+            System.out.println("Antes de generar el archivo XML");
+            generarArchivo(documento, "empleados.xml");
+            System.out.println("Después de generar el archivo XML");
+
+            // Cerrar streams
+            dataInputStream.close();
+            fileInputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-    static void mostrarPantalla (Document archivo) {
+
+    static String readString(DataInputStream dataInputStream) throws IOException {
+        int length = dataInputStream.readInt();
+        byte[] bytes = new byte[length];
+        dataInputStream.readFully(bytes);
+        return new String(bytes, "UTF-8");
+    }
+
+    static void mostrarPantalla(Document archivo) {
         Source source = new DOMSource(archivo);
         Result salida = new StreamResult(System.out);
         try {
@@ -92,8 +101,8 @@ public class File1GeneraXMlBin {
             System.out.println("Excepción del transformer.");
         }
     }
-   
-    static void generarArchivo (Document archivo, String nombre) {
+
+    static void generarArchivo(Document archivo, String nombre) {
         Source source = new DOMSource(archivo);
         Result salida = new StreamResult(new File(nombre));
         try {
@@ -103,33 +112,17 @@ public class File1GeneraXMlBin {
             System.out.println("Excepción del transformer.");
         }
     }
-   
-    static void añadirNodo (String datoEmple, String texto, Element raíz, Document documento) {
+
+    static void añadirNodo(String datoEmple, String texto, Element raíz, Document documento) {
         Element dato = documento.createElement(datoEmple);
         Text textoDato = documento.createTextNode(texto);
         dato.appendChild(textoDato);
         raíz.appendChild(dato);
     }
-   
-    static Element añadirNodo (String datoEmple, Element raíz, Document documento) {
-        Element dato = documento.createElement(datoEmple);
-        raíz.appendChild(dato);
-        return dato;
-    }
-   
+
     static Element crearNodoPrincipal(String nombreNodo, Document documento) {
         Element nodoPrincipal = documento.createElement(nombreNodo);
-        documento.getDocumentElement().appendChild(nodoPrincipal);
+        documento.appendChild(nodoPrincipal);
         return nodoPrincipal;
     }
-   
-    static Document inicializar (String nombre) throws ParserConfigurationException {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        DOMImplementation implementation = builder.getDOMImplementation();
-        Document archivo = (Document) implementation.createDocument(null, nombre, null);
-        archivo.setXmlVersion("1.0");
-        return archivo;
-    }
-    
 }
